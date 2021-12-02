@@ -18,10 +18,6 @@ In `.vimrc`:
 Now, you can use any function.
 
 ## Functions list
-<details> <summary> <code> function! jaandrle_utils#fold_remember() </code> </summary>
-
-    Sets Vim to save folds in files automatically
-</details>
 <details> <summary> <code> function! jaandrle_utils#fold_nextClosed(dir) </code> </summary>
     Use `j`/`k` as arguments, navigates to the next fold.
 </details>
@@ -29,14 +25,6 @@ Now, you can use any function.
 
     Very basic/simple qutes/brackets pairing in insert/command mode.
     E.g. `inoremap <> <c-g>u<><Left>`
-</details>
-<details> <summary> <code> function! jaandrle_utils#allowVisualSelectionViaStarHash() </code> </summary>
-
-    Allow `*`/`#` searching in visual mode
-</details>
-<details> <summary> <code> function! jaandrle_utils#quickfix_autoOpen() </code> </summary>
-
-    Auto `:qopen`
 </details>
 <details> <summary> <code> function! jaandrle_utils#grep(...) </code> </summary>
 
