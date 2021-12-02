@@ -7,13 +7,13 @@ Some helper functions used in my `.vimrc`.
 Install using your favorite package manager, or use Vim's built-in package
 support:
 
-    mkdir -p ~/.vim/plugin/vim-jaandrle_utils
-    cd ~/.vim/plugin/vim-jaandrle_utils
+    mkdir -p ~/.vim/bundle/vim-jaandrle_utils
+    cd ~/.vim/bundle/vim-jaandrle_utils
     git clone https://github.com/jaandrle/vim-jaandrle_utils.git
 
 In `.vimrc`:
 
-    source ~/.vim/plugin/vim-jaandrle_utils/jaandrle_utils.vim
+    set runtimepath^=~/.vim/bundle/*
 
 Now, you can use any function.
 
