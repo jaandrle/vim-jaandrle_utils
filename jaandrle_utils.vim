@@ -9,6 +9,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 " #endregion
 
+function jaandrle_utils#trimEndLineSpaces(line_start, line_end)
+    let b:pos= getpos(".") | let b:s= @/
+    execute a:line_start.','.a:line_end.'s/\s\+$//e' | nohl
+    let @/= b:s | call setpos('.', b:pos)
+endfunction
 function! jaandrle_utils#fold_nextClosed(dir)
     let cmd = 'norm!z' . a:dir
     let view = winsaveview()
