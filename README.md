@@ -18,6 +18,9 @@ In `.vimrc`:
 Now, you can use any function.
 
 ## Functions list
+<details> <summary> <code> jaandrle_utils#trimEndLineSpaces(line_start, line_end) </code> </summary>
+    The name doesn't lie
+</details>
 <details> <summary> <code> function! jaandrle_utils#fold_nextClosed(dir) </code> </summary>
     Use `j`/`k` as arguments, navigates to the next fold.
 </details>
