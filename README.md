@@ -20,9 +20,9 @@ Now, you can use any function.
 ## Functions list
 <details>
     <summary>
-    ```
-    function! jaandrle_utils#fold_remember()
-    ```
+```
+function! jaandrle_utils#fold_remember()
+```
     </summary>
     Sets Vim to save folds in files automatically
 </details>
