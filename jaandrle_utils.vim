@@ -9,13 +9,6 @@ let s:save_cpo = &cpo
 set cpo&vim
 " #endregion
 
-function! jaandrle_utils#fold_remember()
-    augroup remember_folds
-        autocmd!
-        autocmd BufWinLeave *.* mkview
-        autocmd BufWinEnter *.* silent! loadview
-    augroup END
-endfunction
 function! jaandrle_utils#fold_nextClosed(dir)
     let cmd = 'norm!z' . a:dir
     let view = winsaveview()
@@ -37,44 +30,7 @@ function! jaandrle_utils#fold_nextOpen(dir)
     endwhile
     call cursor(b:start, 0)
 endfunction
-function! jaandrle_utils#allowSimplePairing()
-    inoremap <> <c-g>u<><Left>
-    inoremap () <c-g>u()<Left>
-    inoremap {} <c-g>u{}<Left>
-    inoremap [] <c-g>u[]<Left>
-    inoremap "" <c-g>u""<Left>
-    inoremap '' <c-g>u''<Left>
-    inoremap `` <c-g>u``<Left>
-    
-    cnoremap <> <><Left>
-    cnoremap () ()<Left>
-    cnoremap {} {}<Left>
-    cnoremap [] []<Left>
-    cnoremap "" ""<Left>
-    cnoremap '' ''<Left>
-    cnoremap `` ``<Left>
-endfunction
-function! jaandrle_utils#allowVisualSelectionViaStarHash()
-    vnoremap <silent> * :<C-u>call VisualSelection('')<CR>/<C-R>=@/<CR><CR>
-    vnoremap <silent> # :<C-u>call VisualSelection('')<CR>?<C-R>=@/<CR><CR>
-endfunction
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let @/ = substitute(l:pattern, "\n$", "", "")
-    let @" = l:saved_reg
-endfunction
 let g:jaandrle_utils#last_command= ''
-function! jaandrle_utils#quickfix_autoOpen()
-    augroup quickfix
-        autocmd!
-        autocmd QuickFixCmdPost cgetexpr cwindow
-                    \| call setqflist([], 'a', {'title': ':' . g:jaandrle_utils#last_command})
-        autocmd QuickFixCmdPost lgetexpr lwindow
-                    \| call setloclist(0, [], 'a', {'title': ':' . g:jaandrle_utils#last_command})
-    augroup END
-endfunction
 function! jaandrle_utils#grep(...)
     let g:jaandrle_utils#last_command= join([substitute(&grepprg, ' /dev/null', '', '')] + [expandcmd(join(a:000, ' '))], ' ')
     return system(g:jaandrle_utils#last_command)
