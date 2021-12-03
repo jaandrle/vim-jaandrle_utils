@@ -77,6 +77,7 @@ function! jaandrle_utils#redir(is_keep, command, range, line_start, line_end)
     silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     silent! execute 'nnoremap <silent> <buffer> ;e :call jaandrle_utils#redir('.a:is_keep.', '''.a:command.''', '.a:range.', '.a:line_start.', '.a:line_end.')<cr>'
     silent! execute 'nnoremap <silent> <buffer> ;q :'.exit.'<CR>'
+    silent! execute 'nnoremap <silent> <buffer> gf gf:only<cr>'
     if line('$')==1 && col('$')==1
         silent! execute exit
         echomsg 'Command "' . command . '" executed and nothing to redirect.'
