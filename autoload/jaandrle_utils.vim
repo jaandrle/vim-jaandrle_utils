@@ -9,7 +9,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 " #endregion
 
-function jaandrle_utils#trimEndLineSpaces(line_start, line_end)
+function! jaandrle_utils#trimEndLineSpaces(line_start, line_end)
     let b:pos= getpos(".") | let b:s= @/
     execute a:line_start.','.a:line_end.'s/\s\+$//e' | nohl
     let @/= b:s | call setpos('.', b:pos)
@@ -77,6 +77,7 @@ function! jaandrle_utils#redir(is_keep, command, range, line_start, line_end)
     silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     silent! execute 'nnoremap <silent> <buffer> ;e :call jaandrle_utils#redir('.a:is_keep.', '''.a:command.''', '.a:range.', '.a:line_start.', '.a:line_end.')<cr>'
     silent! execute 'nnoremap <silent> <buffer> ;q :'.exit.'<CR>'
+    silent! execute 'nnoremap <silent> <buffer> gf gf:only<cr>'
     if line('$')==1 && col('$')==1
         silent! execute exit
         echomsg 'Command "' . command . '" executed and nothing to redirect.'
@@ -101,13 +102,13 @@ function! jaandrle_utils#AppendModeline(additional)
     let l:modeline= substitute(&commentstring, "%s", l:modeline, "")
     call append(line("$"), l:modeline)
 endfunction
-function jaandrle_utils#MapSmartKey(key_name)
+function! jaandrle_utils#MapSmartKey(key_name)
     let cmd = '<sid>Smart'.a:key_name
     exec 'nmap <silent><'.a:key_name.'> :call '.cmd.'("n")<CR>'
     exec 'imap <silent><'.a:key_name.'> <C-r>='.cmd.'("i")<CR>'
     exec 'vmap <silent><'.a:key_name.'> <Esc>:call '.cmd.'("v")<CR>'
 endfunction
-function s:SmartHome(mode)
+function! s:SmartHome(mode)
     " #region …
     let curcol = col(".")
     "gravitate towards beginning for wrapped lines
@@ -133,7 +134,7 @@ function s:SmartHome(mode)
     return ""
     " #endregion
 endfunction
-function s:SmartEnd(mode)
+function! s:SmartEnd(mode)
     " #region …
     let curcol = col(".")
     let lastcol = a:mode == "i" ? col("$") : col("$") - 1
@@ -177,17 +178,6 @@ function! jaandrle_utils#copyRegister()
     call setreg(destinationReg, getreg(sourceReg, 1))
     echon destinationReg
 endfunction
-"coc has support for renaming
-function! jaandrle_utils#renameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        exec ':silent bd ' . old_file
-        redraw!
-    endif
-endfunction
 function! jaandrle_utils#gotoJumpChange(cmd)
     let b:key_shotcuts= a:cmd=="jump" ? [ "\<c-i>", "\<c-o>" ] : [ "g,", "g;" ]
     set nomore
@@ -210,12 +200,6 @@ function! jaandrle_utils#gotoJumpListDI(move, key)
     let j = input("[see help for ':".tolower(a:key)."list']\nselect '".a:move.c."': ")
     if j == '' | return 0 | endif
     call feedkeys(":call feedkeys(\"".j.a:move."\\".c."\", 'tm')\<cr>")
-endfunction
-function! jaandrle_utils#gotoJumpListCL(name)
-    execute a:name."list"
-    let j = input("[see help for ':".a:name."list']\nselect '".a:name.a:name."': ")
-    if j == '' | return 0 | endif
-    execute a:name.a:name." ".j
 endfunction
 
 " #region Finish

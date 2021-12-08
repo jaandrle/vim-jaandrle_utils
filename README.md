@@ -28,11 +28,6 @@ function! jaandrle_utils#fold_nextOpen(dir)
 </code> </summary>
     Use `j`/`k` as arguments, navigates to the next fold.
 </details>
-<details> <summary> <code> function! jaandrle_utils#allowSimplePairing() </code> </summary>
-
-    Very basic/simple qutes/brackets pairing in insert/command mode.
-    E.g. `inoremap <> <c-g>u<><Left>`
-</details>
 <details> <summary> <code> function! jaandrle_utils#grep(...) </code> </summary>
 
     `:grep` alternative which is asynchronous and also uses system grep tool (see `:help 'grepprg'`)
@@ -52,24 +47,21 @@ function! jaandrle_utils#fold_nextOpen(dir)
 
     Add current `modeline` (see `:help modeline`)
 </details>
+<details> <summary> <code> function! jaandrle_utils#MapSmartKey(key_name) </code> </summary>
+
+    Argument `Home`/`End` → smart key behav. (first, first nonwhite, hadle wrap, …)
+</details>
 <details> <summary> <code> function! jaandrle_utils#copyRegister() </code> </summary>
 
     To copy content between registers
 </details>
-<details> <summary> <code> function! jaandrle_utils#renameFile() </code> </summary>
-
-</details>
 <details> <summary> <code> function! jaandrle_utils#gotoJumpChange(cmd) </code> </summary>
 
-    Argument can be `"jump"`/`"changes"`, invokes combine showing list and option to navigate
+    Argument can be `"jump"`/`"changes"`, invokes combination of showing list and option to navigate
 </details>
 <details> <summary> <code> function! jaandrle_utils#gotoJumpListDI(move, key) </code> </summary>
 
-    Argument can be `"["`/`"]"` for `move` and `"I"`/`"D"` for `key`, invokes combine showing list and option to navigate
-</details>
-<details> <summary> <code> function! jaandrle_utils#gotoJumpListCL(name) </code> </summary>
-
-    Argument can be `"c"`/`"l"`, invokes combine showing list and option to navigate
+    Argument can be `"["`/`"]"` for `move` and `"I"`/`"D"` for `key`, invokes combination of showing list and option to navigate
 </details>
 
 ## TODO
