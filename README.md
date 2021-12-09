@@ -59,10 +59,6 @@ function! jaandrle_utils#fold_nextOpen(dir)
 
     Argument can be `"jump"`/`"changes"`, invokes combination of showing list and option to navigate
 </details>
-<details> <summary> <code> function! jaandrle_utils#gotoJumpListDI(move, key) </code> </summary>
-
-    Argument can be `"["`/`"]"` for `move` and `"I"`/`"D"` for `key`, invokes combination of showing list and option to navigate
-</details>
 
 ## TODO
 - [ ] better README

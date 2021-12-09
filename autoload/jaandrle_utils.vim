@@ -194,13 +194,6 @@ function! jaandrle_utils#gotoJumpChange(cmd)
         execute "normal " . j . b:key_shotcuts[1]
     endif
 endfunction
-function! jaandrle_utils#gotoJumpListDI(move, key)
-    execute "normal ".a:move.a:key
-    let c= "<c-".a:key.">"
-    let j = input("[see help for ':".tolower(a:key)."list']\nselect '".a:move.c."': ")
-    if j == '' | return 0 | endif
-    call feedkeys(":call feedkeys(\"".j.a:move."\\".c."\", 'tm')\<cr>")
-endfunction
 
 " #region Finish
 let &cpo = s:save_cpo
