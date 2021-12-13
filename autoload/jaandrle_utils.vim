@@ -43,12 +43,19 @@ endfunction
 function! jaandrle_utils#redir(is_keep, command, range, line_start, line_end)
     let exit= a:is_keep==1 ? 'bw' : 'q'
     let pre_command = join(map(split(a:command), 'expand(v:val)'))
-    if pre_command=~ '^!' && a:range!=0
-        let joined_lines = join(getline(a:line_start, a:line_end), '\n')
-        let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-        let command= pre_command . " <<< $" . cleaned_lines
+    if pre_command=~ '^!'
+        if a:range!=0
+            let joined_lines = join(getline(a:line_start, a:line_end), '\n')
+            let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
+            let command= pre_command . " <<< $" . cleaned_lines
+        else 
+            let command= pre_command
+        endif
     else
         let command= pre_command
+        redir => output
+        silent execute command
+        redir END
     endif
     let w:scratch = 1
     if a:is_keep==1
@@ -63,10 +70,10 @@ function! jaandrle_utils#redir(is_keep, command, range, line_start, line_end)
     if command=~ '^!'
         silent! execute 'silent %'. command
     else
-        redir => output
-        silent execute command
-        redir END
         call setline(1, split(output, "\n"))
+    endif
+    if command=~ '^!git'
+        setlocal filetype=git
     endif
     if a:is_keep==0
         execute 'wincmd ='
