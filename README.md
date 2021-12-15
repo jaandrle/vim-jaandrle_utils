@@ -9,7 +9,7 @@ support:
 
     mkdir -p ~/.vim/bundle/vim-jaandrle_utils
     cd ~/.vim/bundle/vim-jaandrle_utils
-    git clone https://github.com/jaandrle/vim-jaandrle_utils.git
+    git clone -b main --single-branch https://github.com/jaandrle/vim-jaandrle_utils.git --depth 1
 
 In `.vimrc`:
 
