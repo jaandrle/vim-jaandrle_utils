@@ -14,27 +14,6 @@ function! jaandrle_utils#trimEndLineSpaces(line_start, line_end)
     execute a:line_start.','.a:line_end.'s/\s\+$//e' | nohl
     let @/= b:s | call setpos('.', b:pos)
 endfunction
-function! jaandrle_utils#fold_nextClosed(dir)
-    let cmd = 'norm!z' . a:dir
-    let view = winsaveview()
-    let [l0, l, open] = [0, view.lnum, 1]
-    while l != l0 && open
-        exe cmd
-        let [l0, l] = [l, line('.')]
-        let open = foldclosed(l) < 0
-    endwhile
-    if open
-        call winrestview(view)
-    endif
-endfunction
-function! jaandrle_utils#fold_nextOpen(dir)
-    let b:step= a:dir=="j" ? 1 : -1
-    let b:start = line('.')
-    while (foldclosed(b:start) != -1)
-        let b:start = b:start + b:step
-    endwhile
-    call cursor(b:start, 0)
-endfunction
 let g:jaandrle_utils#last_command= ''
 function! jaandrle_utils#grep(...)
     let g:jaandrle_utils#last_command= join([substitute(&grepprg, ' /dev/null', '', '')] + [expandcmd(join(a:000, ' '))], ' ')
@@ -186,7 +165,7 @@ function! jaandrle_utils#copyRegister()
     echon destinationReg
 endfunction
 function! jaandrle_utils#gotoJumpChange(cmd)
-    let b:key_shotcuts= a:cmd=="jump" ? [ "\<c-i>", "\<c-o>" ] : [ "g,", "g;" ]
+    let l:key_shotcuts= a:cmd=="jump" ? [ "\<c-i>", "\<c-o>" ] : [ "g;", "g," ]
     set nomore
     execute a:cmd."s"
     set more
@@ -196,9 +175,9 @@ function! jaandrle_utils#gotoJumpChange(cmd)
     let pattern = '\v\c^\+'
     if j =~ pattern
         let j = substitute(j, pattern, '', 'g')
-        execute "normal " . j . b:key_shotcuts[0]
+        execute "normal " . j . l:key_shotcuts[0]
     else
-        execute "normal " . j . b:key_shotcuts[1]
+        execute "normal " . j . l:key_shotcuts[1]
     endif
 endfunction
 
