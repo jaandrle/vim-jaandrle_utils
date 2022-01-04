@@ -171,13 +171,15 @@ function! jaandrle_utils#gotoJumpChange(cmd)
     set more
     let j = input("[see help for ':".a:cmd."(s).' | -/+ for up/down]\nselect ".a:cmd.": ")
     if j == '' | return 0 | endif
-
-    let pattern = '\v\c^\+'
-    if j =~ pattern
-        let j = substitute(j, pattern, '', 'g')
-        execute "normal " . j . l:key_shotcuts[0]
-    else
-        execute "normal " . j . l:key_shotcuts[1]
+    execute "normal g'" . j
+endfunction
+function! jaandrle_utils#gotoMarks()
+    set nomore
+    marks
+    set more
+    let j = input("[see help for :marks,:k,',g',`,g`]\nselect: ")
+    if j != ''
+        execute "normal g`" . j
     endif
 endfunction
 

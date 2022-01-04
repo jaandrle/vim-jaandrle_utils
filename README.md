@@ -59,6 +59,10 @@ function! jaandrle_utils#fold_nextOpen(dir)
 
     Argument can be `"jump"`/`"changes"`, invokes combination of showing list and option to navigate
 </details>
+<details> <summary> <code> function! jaandrle_utils#gotoMarks() </code> </summary>
+
+    Argument is `mark` name, invokes combination of showing list and option to navigate (via `g\`★`)
+</details>
 
 ## TODO
 - [ ] better README
