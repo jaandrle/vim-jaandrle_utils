@@ -165,13 +165,19 @@ function! jaandrle_utils#copyRegister()
     echon destinationReg
 endfunction
 function! jaandrle_utils#gotoJumpChange(cmd)
-    let l:key_shotcuts= a:cmd=="jump" ? [ "\<c-i>", "\<c-o>" ] : [ "g;", "g," ]
+    let l:key_shotcuts= a:cmd=="jump" ? [ "\<c-i>", "\<c-o>" ] : [ "g,", "g;" ]
     set nomore
     execute a:cmd."s"
     set more
-    let j = input("[see help for ':".a:cmd."(s).' | -/+ for up/down]\nselect ".a:cmd.": ")
+    let j = input("[see help for ':".a:cmd."(s).' | +/- for up/down]\nselect ".a:cmd.": ")
     if j == '' | return 0 | endif
-    execute "normal g'" . j
+    let pattern = '\v\c^-'
+    if j =~ pattern
+        let j = substitute(j, pattern, '', 'g')
+        execute "normal " . j . l:key_shotcuts[0]
+    else
+        execute "normal " . j . l:key_shotcuts[1]
+    endif
 endfunction
 function! jaandrle_utils#gotoMarks()
     set nomore
